@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         displayBooks();
-
     }
 
 
@@ -44,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     public void insertBook() {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -55,14 +55,13 @@ public class MainActivity extends AppCompatActivity {
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE, "00000 000 000");
 
         db.insert(BookEntry.TABLE_NAME, null, values);
-
     }
 
     public void displayBooks() {
 
         SQLiteDatabase db = helper.getReadableDatabase();
 
-
+        //separate out the column titles from between the [square brackets] as was causing app to crash
         String supplierString = BookEntry.COLUMN_SUPPLIER_NAME.substring(1, 14);
         String supplierPhoneString = BookEntry.COLUMN_SUPPLIER_PHONE.substring(1, 22);
 
