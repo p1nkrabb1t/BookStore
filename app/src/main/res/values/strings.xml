@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Book Store</string>
+    <string name="menu_testdata">Insert test data</string>
 </resources>
