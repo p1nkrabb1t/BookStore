@@ -34,7 +34,7 @@ public final class BookContract {
 
         public static final String TABLE_NAME = "books";
         public static final String _ID = "_id";
-        public static final String COLUMN_NAME = "Name";
+        public static final String COLUMN_NAME = "Title";
         public static final String COLUMN_AUTHOR = "Author";
         public static final String COLUMN_PRICE = "Price";
         public static final String COLUMN_QUANTITY = "Quantity";

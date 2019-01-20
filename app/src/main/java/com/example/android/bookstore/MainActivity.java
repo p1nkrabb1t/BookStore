@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void insertBook() {
-        SQLiteDatabase db = helper.getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_NAME, "Apps For Beginners");
         values.put(BookEntry.COLUMN_AUTHOR, "C. oder");
@@ -54,12 +54,10 @@ public class MainActivity extends AppCompatActivity {
         values.put(BookEntry.COLUMN_SUPPLIER_NAME, "Droid Books");
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE, "00000 000 000");
 
-        db.insert(BookEntry.TABLE_NAME, null, values);
+        getContentResolver().insert(BookEntry.CONTENT_URI, values);
     }
 
     public void displayBooks() {
-
-        SQLiteDatabase db = helper.getReadableDatabase();
 
         //separate out the column titles from between the [square brackets] as was causing app to crash
         String supplierString = BookEntry.COLUMN_SUPPLIER_NAME.substring(1, 14);
@@ -76,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
                 BookEntry.COLUMN_SUPPLIER_PHONE
         };
 
-        Cursor cursor = db.query(BookEntry.TABLE_NAME, projection, null, null,
-                null, null, null);
+        //use contentResolver to interact with the database
+        Cursor cursor = getContentResolver().query(BookEntry.CONTENT_URI, projection, null, null,
+                null);
 
 
         int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
