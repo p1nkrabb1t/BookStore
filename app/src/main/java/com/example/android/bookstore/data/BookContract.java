@@ -16,7 +16,6 @@ public final class BookContract {
 
 
     private BookContract() {
-
     }
 
     public static final class BookEntry implements BaseColumns {
