@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/pad_XS">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="@dimen/pad_XS">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Book Title"
+            android:textStyle="bold"
+            tools:text="Apps For Beginners" />
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Author"
+            tools:text="C. oder" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:padding="@dimen/pad_XS">
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:contentDescription="Price"
+            android:textStyle="bold"
+            tools:text="£5" />
+
+        <TextView
+            android:id="@+id/tv_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:contentDescription="Quantity in stock"
+            tools:text="2 In Stock" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_sale"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:gravity="right"
+        android:padding="@dimen/pad_XS"
+        android:layout_margin="10dp"
+        android:text="Sale"
+        android:scaleType="centerCrop" />
+
+
+</LinearLayout>
