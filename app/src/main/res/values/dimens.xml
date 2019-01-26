@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="TV_margin_med">10dp</dimen>
+    <dimen name="margin_med">10dp</dimen>
     <dimen name="pad_XS">4dp</dimen>
+    <dimen name="pad_med">10dp</dimen>
 </resources>

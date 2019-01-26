@@ -14,7 +14,7 @@ import com.example.android.bookstore.data.BookContract;
 public class BookCursorAdapter extends CursorAdapter {
 
     public BookCursorAdapter(Context context, Cursor c, int flags) {
-        super(context, c, flags);
+        super(context, c, 0);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class BookCursorAdapter extends CursorAdapter {
         //feed the data collected into the relevant views
         titleTextView.setText(titleData);
         authorTextView.setText(authorData);
-        priceTextView.setText(priceData);
-        quantityTextView.setText(quantityData);
+        priceTextView.setText("£" + priceData);
+        quantityTextView.setText("In Stock: " + quantityData);
     }
 }

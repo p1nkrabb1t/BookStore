@@ -2,12 +2,11 @@ package com.example.android.bookstore;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.example.android.bookstore.data.BookContract.BookEntry;
 import com.example.android.bookstore.data.BookDbHelper;
@@ -15,6 +14,7 @@ import com.example.android.bookstore.data.BookDbHelper;
 public class MainActivity extends AppCompatActivity {
 
     BookDbHelper helper = new BookDbHelper(this);
+    // BookCursorAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,46 +78,19 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = getContentResolver().query(BookEntry.CONTENT_URI, projection, null, null,
                 null);
 
+        ListView listView = (ListView) findViewById(R.id.LV_books);
+        BookCursorAdapter adapter = new BookCursorAdapter(this, cursor, 0);
 
-        int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
-        int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_NAME);
-        int authorColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_AUTHOR);
-        int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
-        int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
-        int supplierNameColumnIndex = cursor.getColumnIndex(supplierString);
-        int supplierPhoneColumnIndex = cursor.getColumnIndex(supplierPhoneString);
+        listView.setAdapter(adapter);
 
-        TextView booksTexView = (TextView) findViewById(R.id.TV_books);
 
-        try {
-            booksTexView.setText(BookEntry._ID
-                    + " | " + BookEntry.COLUMN_NAME
-                    + " | " + BookEntry.COLUMN_AUTHOR
-                    + " | " + BookEntry.COLUMN_PRICE
-                    + " | " + BookEntry.COLUMN_QUANTITY
-                    + " | " + supplierString
-                    + " | " + supplierPhoneString + "\n");
-
-            while (cursor.moveToNext()) {
-                int currentID = cursor.getInt(idColumnIndex);
-                String currentName = cursor.getString(nameColumnIndex);
-                String currentAuthor = cursor.getString(authorColumnIndex);
-                int currentPrice = cursor.getInt(priceColumnIndex);
-                int currentQuantity = cursor.getInt(quantityColumnIndex);
-                String currentSupplier = cursor.getString(supplierNameColumnIndex);
-                String currentSupplierPhone = cursor.getString(supplierPhoneColumnIndex);
-
-                booksTexView.append("\n" + currentID
-                        + " | " + currentName
-                        + " | " + currentAuthor
-                        + " | £" + currentPrice
-                        + " | " + currentQuantity
-                        + " | " + currentSupplier
-                        + " | " + currentSupplierPhone);
-            }
-        } finally {
-            cursor.close();
-        }
+//        int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
+//        int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_NAME);
+//        int authorColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_AUTHOR);
+//        int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
+//        int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
+//        int supplierNameColumnIndex = cursor.getColumnIndex(supplierString);
+//        int supplierPhoneColumnIndex = cursor.getColumnIndex(supplierPhoneString);
 
 
     }
