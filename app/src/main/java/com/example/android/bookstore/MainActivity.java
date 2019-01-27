@@ -1,8 +1,10 @@
 package com.example.android.bookstore;
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.bookstore.data.BookContract.BookEntry;
 
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     BookCursorAdapter mAdapter;
     private static final int BookLoader = 0;
+    Boolean empty = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +40,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Using switch statement as more options will be added later
         switch (item.getItemId()) {
             case R.id.test_data:
                 insertBook();
                 displayBooks();
                 return true;
+
+            case R.id.delete_all:
+                if (empty) {
+                    Toast.makeText(this, "There are no books to delete", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    showDeleteConfirmationDialog();
+                    displayBooks();
+                    return true;
+                }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -55,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //empty view will show only if there are no books in database
         View emptyView = findViewById(R.id.empty_view);
         listView.setEmptyView(emptyView);
+
 
         //set the Cursor Adapter to display the list of 'books', each one being a Cursor of data
         mAdapter = new BookCursorAdapter(this, null, 0);
@@ -76,6 +90,42 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //insert via contentResolver instead of directly interacting with database
         getContentResolver().insert(BookEntry.CONTENT_URI, values);
+        empty = false;
+    }
+
+    //delete all books in the table
+    private void deleteAllBooks() {
+
+        if (BookEntry.CONTENT_URI != null) {
+
+            getContentResolver().delete(BookEntry.CONTENT_URI, null, null);
+            empty = true;
+
+        }
+
+    }
+
+    //add a confirm deletion check message with options to continue or cancel
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure");
+        //option to continue with delete
+        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                deleteAllBooks();
+            }
+        });
+        //option to cancel the request
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 

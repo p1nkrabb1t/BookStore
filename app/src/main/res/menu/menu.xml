@@ -9,4 +9,9 @@
         android:title="@string/menu_testdata"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/delete_all"
+        android:title="Delete All Books"
+        app:showAsAction="never" />
+
 </menu>

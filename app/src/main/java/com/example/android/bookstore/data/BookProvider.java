@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.android.bookstore.data.BookContract.BookEntry;
@@ -18,6 +17,7 @@ public class BookProvider extends ContentProvider {
 
     private static final int BOOKS = 1;
     private static final int BOOK = 2;
+
 
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -70,6 +70,7 @@ public class BookProvider extends ContentProvider {
     }
 
 
+    //to get the MIME data type for the URI
     @Override
     public String getType(@NonNull Uri uri) {
         final int match = sUriMatcher.match(uri);
@@ -127,7 +128,7 @@ public class BookProvider extends ContentProvider {
             //not valid entry
             return null;
         }
-
+        //notify that database has changed and the cursor of displayed data should be updated
         getContext().getContentResolver().notifyChange(uri, null);
         return ContentUris.withAppendedId(uri, id);
     }
