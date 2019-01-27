@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.example.android.bookstore.data.BookContract.BookEntry;
@@ -79,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
                 null);
 
         ListView listView = (ListView) findViewById(R.id.LV_books);
+        View emptyView = findViewById(R.id.empty_view);
+        listView.setEmptyView(emptyView);
+
         BookCursorAdapter adapter = new BookCursorAdapter(this, cursor, 0);
 
         listView.setAdapter(adapter);
