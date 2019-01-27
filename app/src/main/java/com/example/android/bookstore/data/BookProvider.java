@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.android.bookstore.data.BookContract.BookEntry;
 
@@ -63,6 +64,7 @@ public class BookProvider extends ContentProvider {
                 throw new IllegalArgumentException(uri + " is not recognised");
         }
 
+        //set uri of cursor to watch for changes
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }
@@ -132,11 +134,40 @@ public class BookProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        SQLiteDatabase database = mBookHelper.getWritableDatabase();
+
+        int booksDeleted = 0;
+
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case BOOKS:
+                // Delete multiple books as determined by the selection and selectionArgs passed in
+                booksDeleted = database.delete(BookEntry.TABLE_NAME, selection, selectionArgs);
+                Toast.makeText(getContext(), booksDeleted + " books have been deleted.", Toast.LENGTH_SHORT).show();
+                break;
+            case BOOK:
+                // Delete the entry selected using the _ID taken from the URI
+                selection = BookEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                booksDeleted = database.delete(BookEntry.TABLE_NAME, selection, selectionArgs);
+                Toast.makeText(getContext(), BookEntry.COLUMN_NAME + " has been deleted.", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                throw new IllegalArgumentException(uri + " is not recognised. No items have been deleted.");
+        }
+
+        if (booksDeleted != 0) {
+            //notify that database has changed and the cursor should be updated
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return booksDeleted;
     }
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+        SQLiteDatabase database = mBookHelper.getWritableDatabase();
+
+
         return 0;
     }
 }
