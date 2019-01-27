@@ -1,6 +1,9 @@
 package com.example.android.bookstore;
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +13,11 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.example.android.bookstore.data.BookContract.BookEntry;
-import com.example.android.bookstore.data.BookDbHelper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    BookDbHelper helper = new BookDbHelper(this);
-    // BookCursorAdapter mAdapter;
+    BookCursorAdapter mAdapter;
+    private static final int BookLoader = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void insertBook() {
+    public void displayBooks() {
 
+        //reference the listView which will display the list of book items
+        ListView listView = (ListView) findViewById(R.id.LV_books);
+
+        //empty view will show only if there are no books in database
+        View emptyView = findViewById(R.id.empty_view);
+        listView.setEmptyView(emptyView);
+
+        //set the Cursor Adapter to display the list of 'books', each one being a Cursor of data
+        mAdapter = new BookCursorAdapter(this, null, 0);
+        listView.setAdapter(mAdapter);
+
+        //start the loader
+        getLoaderManager().initLoader(BookLoader, null, this);
+    }
+
+    //insert test data into the database
+    public void insertBook() {
         ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_NAME, "Apps For Beginners");
         values.put(BookEntry.COLUMN_AUTHOR, "C. oder");
@@ -55,16 +74,14 @@ public class MainActivity extends AppCompatActivity {
         values.put(BookEntry.COLUMN_SUPPLIER_NAME, "Droid Books");
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE, "00000 000 000");
 
+        //insert via contentResolver instead of directly interacting with database
         getContentResolver().insert(BookEntry.CONTENT_URI, values);
     }
 
-    public void displayBooks() {
 
-        //separate out the column titles from between the [square brackets] as was causing app to crash
-        String supplierString = BookEntry.COLUMN_SUPPLIER_NAME.substring(1, 14);
-        String supplierPhoneString = BookEntry.COLUMN_SUPPLIER_PHONE.substring(1, 22);
-
-
+    @Override
+    //use loader to load data on a background thread
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = {
                 BookEntry._ID,
                 BookEntry.COLUMN_NAME,
@@ -74,30 +91,19 @@ public class MainActivity extends AppCompatActivity {
                 BookEntry.COLUMN_SUPPLIER_NAME,
                 BookEntry.COLUMN_SUPPLIER_PHONE
         };
-
-        //use contentResolver to interact with the database
-        Cursor cursor = getContentResolver().query(BookEntry.CONTENT_URI, projection, null, null,
+        return new CursorLoader(this, BookEntry.CONTENT_URI, projection, null, null,
                 null);
-
-        ListView listView = (ListView) findViewById(R.id.LV_books);
-        View emptyView = findViewById(R.id.empty_view);
-        listView.setEmptyView(emptyView);
-
-        BookCursorAdapter adapter = new BookCursorAdapter(this, cursor, 0);
-
-        listView.setAdapter(adapter);
-
-
-//        int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
-//        int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_NAME);
-//        int authorColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_AUTHOR);
-//        int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
-//        int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
-//        int supplierNameColumnIndex = cursor.getColumnIndex(supplierString);
-//        int supplierPhoneColumnIndex = cursor.getColumnIndex(supplierPhoneString);
-
-
     }
 
+    @Override
+    //update the adapter with the data from the newly retrieved cursor
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mAdapter.swapCursor(data);
+    }
 
+    @Override
+    //reset all values to null
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
+    }
 }
