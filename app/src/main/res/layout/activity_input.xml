@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InputActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+
+        <EditText
+            android:id="@+id/ET_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Book Title"
+            android:inputType="textCapWords" />
+
+        <EditText
+            android:id="@+id/ET_author"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Author"
+            android:inputType="textCapWords" />
+
+        <EditText
+            android:id="@+id/ET_Supplier"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Supplier Name"
+            android:inputType="textCapWords" />
+
+        <EditText
+            android:id="@+id/ET_Supplier_phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Supplier Phone Number"
+            android:inputType="number" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <EditText
+                android:id="@+id/ET_rrp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:hint="RRP £"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/ET_discount"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:hint="Discount %"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Stock Quantity"
+                android:textSize="18sp" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="-" />
+
+            <EditText
+                android:id="@+id/ET_stock_qty"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:padding="@dimen/pad_XS"
+                android:text="0" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="+" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Set Stock Minimum"
+                android:textSize="18sp" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="-" />
+
+            <EditText
+                android:id="@+id/ET_stock_min"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="2"
+                android:padding="@dimen/pad_XS"
+                android:text="0" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="+" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

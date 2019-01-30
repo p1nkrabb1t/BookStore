@@ -16,10 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name=".data.BookProvider"
             android:authorities="com.example.android.bookstore"
             android:exported="false" />
+
+        <activity android:name=".InputActivity"></activity>
     </application>
 
 </manifest>
