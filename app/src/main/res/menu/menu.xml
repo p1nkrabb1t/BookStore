@@ -13,5 +13,9 @@
         android:id="@+id/delete_all"
         android:title="Delete All Books"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/add_book"
+        android:title="Add Book"
+        app:showAsAction="never" />
 
 </menu>

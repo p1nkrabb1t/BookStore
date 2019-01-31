@@ -5,6 +5,7 @@ import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import com.example.android.bookstore.data.BookContract.BookEntry;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     BookCursorAdapter mAdapter;
-    private static final int BookLoader = 0;
+    private static final int mBookLoader = 0;
     Boolean empty = true;
 
     @Override
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     displayBooks();
                     return true;
                 }
+
+            case R.id.add_book:
+                Intent i = new Intent(MainActivity.this, InputActivity.class);
+                startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -75,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         listView.setAdapter(mAdapter);
 
         //start the loader
-        getLoaderManager().initLoader(BookLoader, null, this);
+        getLoaderManager().initLoader(mBookLoader, null, this);
     }
 
     //insert test data into the database

@@ -22,7 +22,11 @@
             android:authorities="com.example.android.bookstore"
             android:exported="false" />
 
-        <activity android:name=".InputActivity"></activity>
+        <activity
+            android:name=".InputActivity"
+            android:parentActivityName=".MainActivity">
+
+        </activity>
     </application>
 
 </manifest>
