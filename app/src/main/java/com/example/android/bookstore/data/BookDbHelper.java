@@ -8,7 +8,7 @@ import com.example.android.bookstore.data.BookContract.BookEntry;
 
 public class BookDbHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "bookInventory.db";
+    public static final String DB_NAME = "bookInventory.db";
 
     private static final int DB_VERSION = 1;
 
@@ -28,6 +28,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
                 + BookEntry.COLUMN_SUPPLIER_NAME + " TEXT NOT NULL, "
                 + BookEntry.COLUMN_SUPPLIER_PHONE + " TEXT);";
         db.execSQL(SQL_CREATE_TABLE_BOOKS);
+
     }
 
     @Override
