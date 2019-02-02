@@ -1,16 +1,22 @@
 package com.example.android.bookstore;
 
+import android.annotation.SuppressLint;
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.android.bookstore.data.BookContract.BookEntry;
 
@@ -40,6 +46,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         }
     };
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +76,44 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mStockEditText = (EditText) findViewById(R.id.ET_stock_qty);
         mMinStockEditText = (EditText) findViewById(R.id.ET_stock_min);
 
-        // set listener onto each of the input fields
+        //find and assign button IDs
+        Button saveButton = (Button) findViewById(R.id.btn_save);
+        Button cancelButton = (Button) findViewById(R.id.btn_cancel);
+        Button deleteButton = (Button) findViewById(R.id.btn_delete);
+
+        //set click listeners to buttons
+        View.OnClickListener save = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveBook();
+                finish();
+
+            }
+        };
+
+
+        View.OnClickListener cancel = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!mEdited) {
+                    NavUtils.navigateUpFromSameTask(InputActivity.this);
+                }
+                finish();
+
+            }
+        };
+
+
+        View.OnClickListener delete = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteBook();
+            }
+        };
+
+
+        // apply listeners to input fields and buttons
         mNameEditText.setOnTouchListener(mTouchListener);
         mAuthorEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
@@ -78,6 +122,77 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
         mStockEditText.setOnTouchListener(mTouchListener);
         mMinStockEditText.setOnTouchListener(mTouchListener);
+        saveButton.setOnClickListener(save);
+        cancelButton.setOnClickListener(cancel);
+        deleteButton.setOnClickListener(delete);
+
+
+    }
+
+    private void saveBook() {
+
+        String nameInput = mNameEditText.getText().toString().trim();
+        String authorInput = mAuthorEditText.getText().toString().trim();
+        String supplierInput = mSupplierEditText.getText().toString().trim();
+        String supplierPhoneInput = mSupplierPhoneEditText.getText().toString().trim();
+        String priceInput = mPriceEditText.getText().toString().trim();
+        String stockInput = mStockEditText.getText().toString().trim();
+
+        int price = 0;
+        if (!TextUtils.isEmpty(priceInput)) {
+            price = Integer.parseInt(priceInput);
+        }
+
+        int stock = 0;
+        if (!TextUtils.isEmpty(stockInput)) {
+            stock = Integer.parseInt(stockInput);
+        }
+
+        ContentValues values = new ContentValues();
+
+        values.put(BookEntry.COLUMN_NAME, nameInput);
+        values.put(BookEntry.COLUMN_AUTHOR, authorInput);
+        values.put(BookEntry.COLUMN_SUPPLIER_NAME, supplierInput);
+        values.put(BookEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneInput);
+        values.put(BookEntry.COLUMN_PRICE, price);
+        values.put(BookEntry.COLUMN_QUANTITY, stock);
+
+        if (mBookUri == null) {
+            //no uri present so not editing an existing book, insert uri for new book into database
+            Uri bookAdded = getContentResolver().insert(BookEntry.CONTENT_URI, values);
+        } else {
+            //check if any change was recorded
+            int updates = getContentResolver().update(mBookUri, values, null, null);
+            if (updates == 0) {
+                // No rows were updated
+                Toast.makeText(this, "Update Failed",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the update was successful
+                Toast.makeText(this, "Details updated successfully",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+    }
+
+    private void deleteBook() {
+
+        if (mBookUri != null) {
+            int deleted = getContentResolver().delete(mBookUri, null, null);
+
+            if (deleted == 0) {
+                // If no rows were removed, display message to advise user
+                Toast.makeText(this, "Delete Failed",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, show delete confirmation message
+                Toast.makeText(this, BookEntry.COLUMN_NAME + " has been deleted",
+                        Toast.LENGTH_SHORT).show();
+            }
+            finish();
+        }
     }
 
 

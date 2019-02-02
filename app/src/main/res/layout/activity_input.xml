@@ -82,6 +82,7 @@
                 android:textSize="18sp" />
 
             <Button
+                android:id="@+id/btn_stock_down"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:text="-" />
@@ -98,6 +99,7 @@
                 android:text="0" />
 
             <Button
+                android:id="@+id/btn_stock_up"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:text="+" />
@@ -107,6 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
             android:padding="4dp">
 
             <TextView
@@ -118,6 +121,7 @@
                 android:textSize="18sp" />
 
             <Button
+                android:id="@+id/btn_min_stock_down"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:text="-" />
@@ -134,9 +138,42 @@
                 android:text="0" />
 
             <Button
+                android:id="@+id/btn_min_stock_up"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:text="+" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="cancel" />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="delete" />
+
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="save" />
         </LinearLayout>
 
 

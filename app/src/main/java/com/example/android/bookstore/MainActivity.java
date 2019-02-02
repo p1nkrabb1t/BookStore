@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             case R.id.delete_all:
                 if (empty) {
                     Toast.makeText(this, "There are no books to delete", Toast.LENGTH_SHORT).show();
+                    return true;
 
                 } else {
                     showDeleteConfirmationDialog();
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //start the loader
         getLoaderManager().initLoader(mBookLoader, null, this);
+
     }
 
     //insert test data into the database
