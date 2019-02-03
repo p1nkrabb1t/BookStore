@@ -1,9 +1,11 @@
 package com.example.android.bookstore;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -25,7 +27,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final int mBookLoader = 0;
     private Uri mBookUri;
     private boolean mEdited = false;
-    protected int count;
+
 
     //set variables to store the data added/edited via the text fields
     private EditText mNameEditText;
@@ -82,7 +84,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
         Button deleteButton = (Button) findViewById(R.id.btn_delete);
 
-        //set click listeners to buttons
+        //set click listener to save button
         View.OnClickListener save = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +94,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         };
 
-
+        //set click listener to cancel button
         View.OnClickListener cancel = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +107,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         };
 
-
+        //set click listener to delete button
         View.OnClickListener delete = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,6 +198,47 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         }
     }
 
+    private void warnUnsavedChanges(
+            DialogInterface.OnClickListener discardButtonClickListener) {
+        //create alert to warn user of unsaved changes and set click listeners on options
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("There are changes which have not been saved, do you wish to proceed?");
+        builder.setPositiveButton("Discard changes", discardButtonClickListener);
+        builder.setNegativeButton("Keep editing", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //user selected to continue editing
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // If no changes are detected, proceed with going back
+        if (!mEdited) {
+            super.onBackPressed();
+            return;
+        }
+
+        // start dialogue warning the user there are unsaved changes and ask if to proceed
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // quit editing and discard any changes
+                        finish();
+                    }
+                };
+
+        // Show dialog to user
+        warnUnsavedChanges(discardButtonClickListener);
+    }
 
     @Override
     //use loader to load data on a background thread
@@ -213,11 +256,11 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
                 null);
     }
 
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         //check first if there is data to load
         if (cursor == null || cursor.getCount() < 1) {
-            count = 0;
             return;
         }
 
@@ -244,11 +287,11 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
 
             mNameEditText.setText(name);
             mAuthorEditText.setText(author);
-            mPriceEditText.setText(price);
+            mPriceEditText.setText(Integer.toString(price));
             //mDiscountEditText.setText(discount); --add in feature later
             mSupplierEditText.setText(supplier);
             mSupplierPhoneEditText.setText(supplierPhone);
-            mStockEditText.setText(stock);
+            mStockEditText.setText(Integer.toString(stock));
             //mMinStockEditText.setText(minStock); --add in feature later
         }
 

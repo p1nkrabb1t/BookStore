@@ -37,8 +37,8 @@ public final class BookContract {
         public static final String COLUMN_AUTHOR = "Author";
         public static final String COLUMN_PRICE = "Price";
         public static final String COLUMN_QUANTITY = "Quantity";
-        //use []square brackets to get sqlite to accept titles with spaces
-        public static final String COLUMN_SUPPLIER_NAME = "[Supplier Name]";
-        public static final String COLUMN_SUPPLIER_PHONE = "[Supplier Phone Number]";
+        //replace []square brackets with '' to get sqlite to accept titles with spaces
+        public static final String COLUMN_SUPPLIER_NAME = "'Supplier Name'";
+        public static final String COLUMN_SUPPLIER_PHONE = "'Supplier Phone Number'";
     }
 }
