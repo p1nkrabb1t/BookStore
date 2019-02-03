@@ -61,7 +61,7 @@
             tools:text="2 In Stock" />
     </LinearLayout>
 
-    <!--
+
     <Button
         android:id="@+id/btn_sale"
         android:layout_width="50dp"
@@ -71,7 +71,9 @@
         android:padding="@dimen/pad_XS"
         android:layout_margin="10dp"
         android:text="Sale"
-        android:scaleType="centerCrop" /> -->
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:scaleType="centerCrop" />
 
 
 </LinearLayout>
