@@ -25,7 +25,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final int mBookLoader = 0;
     private Uri mBookUri;
     private boolean mEdited = false;
-    int count;
+    protected int count;
 
     //set variables to store the data added/edited via the text fields
     private EditText mNameEditText;
@@ -166,7 +166,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             int updates = getContentResolver().update(mBookUri, values, null, null);
             if (updates == 0) {
                 // No rows were updated
-                Toast.makeText(this, "Update Failed",
+                Toast.makeText(this, "No Updates to Show",
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the update was successful

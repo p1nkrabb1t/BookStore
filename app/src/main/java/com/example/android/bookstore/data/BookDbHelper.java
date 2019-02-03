@@ -32,7 +32,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase booksDb, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase bookInventory, int oldVersion, int newVersion) {
 
     }
 }
