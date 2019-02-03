@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -18,9 +17,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.android.bookstore.data.BookContract.BookEntry;
-import com.example.android.bookstore.data.BookDbHelper;
-
-import static com.example.android.bookstore.data.BookDbHelper.DB_NAME;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -51,17 +47,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 return true;
 
             case R.id.delete_all:
-
-                if (BookEntry.CONTENT_URI != null) {
-                    showDeleteConfirmationDialog();
-                    return true;
+                //before running delete process, first check if there are any entries to delete
+                int count = getContentResolver().query(BookEntry.CONTENT_URI, null, null, null, null).getCount();
+                //advise user there is nothing to delete and then discontinue with delete
+                if (count == 0) {
+                    Toast.makeText(this, "THERE ARE NO BOOKS TO DELETE", Toast.LENGTH_SHORT).show();
                 }
+                // entries are present, proceed with launching delete confirmation dialogue
                 else {
-                    Toast.makeText(this, "There are no books to delete", Toast.LENGTH_SHORT).show();
+                    showDeleteConfirmationDialog();
                 }
+                return true;
 
 
             case R.id.add_book:
+                //launch the InputActivity for the user to enter new book details
                 Intent i = new Intent(MainActivity.this, InputActivity.class);
                 startActivity(i);
         }
@@ -77,13 +77,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //empty view will show only if there are no books in database
         View emptyView = findViewById(R.id.empty_view);
         listView.setEmptyView(emptyView);
+
+        //set click listener on empty view for quick way for the user to add a book
         View.OnClickListener add = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, InputActivity.class);
                 startActivity(i);
                 finish();
-
             }
         };
         emptyView.setOnClickListener(add);
@@ -115,11 +116,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     //delete all books in the table
     private void deleteAllBooks() {
-
         if (BookEntry.CONTENT_URI != null) {
-
             getContentResolver().delete(BookEntry.CONTENT_URI, null, null);
-
         }
 
 

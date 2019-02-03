@@ -25,6 +25,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final int mBookLoader = 0;
     private Uri mBookUri;
     private boolean mEdited = false;
+    int count;
 
     //set variables to store the data added/edited via the text fields
     private EditText mNameEditText;
@@ -216,6 +217,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         //check first if there is data to load
         if (cursor == null || cursor.getCount() < 1) {
+            count = 0;
             return;
         }
 

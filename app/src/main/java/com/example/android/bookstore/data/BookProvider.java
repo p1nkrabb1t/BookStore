@@ -139,7 +139,6 @@ public class BookProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         SQLiteDatabase database = mBookHelper.getWritableDatabase();
-        //int count = database.rawQuery("SELECT _id FROM books", null).getCount();
 
         int booksDeleted = 0;
 
