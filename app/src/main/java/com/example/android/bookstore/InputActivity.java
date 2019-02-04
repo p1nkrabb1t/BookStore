@@ -27,6 +27,8 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final int mBookLoader = 0;
     private Uri mBookUri;
     private boolean mEdited = false;
+    private int stock;
+    private int stockRemove = 0;
 
 
     //set variables to store the data added/edited via the text fields
@@ -80,9 +82,44 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mMinStockEditText = (EditText) findViewById(R.id.ET_stock_min);
 
         //find and assign button IDs
+        Button stockIncrease = (Button) findViewById(R.id.btn_stock_up);
+        Button stockDecrease = (Button) findViewById(R.id.btn_stock_down);
         Button saveButton = (Button) findViewById(R.id.btn_save);
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
         Button deleteButton = (Button) findViewById(R.id.btn_delete);
+
+        //set click listener to increase stock button
+        View.OnClickListener stockUp = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (stock < 999) {
+                    stock = stock + 1;
+                    mStockEditText.setText(Integer.toString(stock));
+                    mEdited = true;
+                }
+                //stop the user entering more than 3 digits
+                if (stock == 999) {
+                    Toast.makeText(InputActivity.this, "999 is the maximum quantity allowed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+
+        //set click listener to decrease stock button
+        View.OnClickListener stockDown = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (stock > 0) {
+                    stock = stock - 1;
+                    mStockEditText.setText(Integer.toString(stock));
+                    mEdited = true;
+                }
+                //stop the user going below 0
+                if (stock == 0) {
+                    Toast.makeText(InputActivity.this, "Stock cannot be less than 0", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
 
         //set click listener to save button
         View.OnClickListener save = new View.OnClickListener() {
@@ -116,7 +153,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         };
 
 
-        // apply listeners to input fields and buttons
+        // apply listeners to input fields
         mNameEditText.setOnTouchListener(mTouchListener);
         mAuthorEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
@@ -125,6 +162,10 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
         mStockEditText.setOnTouchListener(mTouchListener);
         mMinStockEditText.setOnTouchListener(mTouchListener);
+
+        // apply listeners to buttons
+        stockIncrease.setOnClickListener(stockUp);
+        stockDecrease.setOnClickListener(stockDown);
         saveButton.setOnClickListener(save);
         cancelButton.setOnClickListener(cancel);
         deleteButton.setOnClickListener(delete);
@@ -139,7 +180,8 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         String supplierInput = mSupplierEditText.getText().toString().trim();
         String supplierPhoneInput = mSupplierPhoneEditText.getText().toString().trim();
         String priceInput = mPriceEditText.getText().toString().trim();
-        String stockInput = mStockEditText.getText().toString().trim();
+        Integer stockInput = Integer.parseInt(mStockEditText.getText().toString().trim());
+
 
         int price = 0;
         if (!TextUtils.isEmpty(priceInput)) {
@@ -147,12 +189,12 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         int stock = 0;
-        if (!TextUtils.isEmpty(stockInput)) {
-            stock = Integer.parseInt(stockInput);
+        if (stockInput != null && stockInput > 0) {
+            stock = stockInput;
         }
 
         ContentValues values = new ContentValues();
-
+        //set the new data
         values.put(BookEntry.COLUMN_NAME, nameInput);
         values.put(BookEntry.COLUMN_AUTHOR, authorInput);
         values.put(BookEntry.COLUMN_SUPPLIER_NAME, supplierInput);
@@ -162,7 +204,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
 
         if (mBookUri == null) {
             //no uri present so not editing an existing book, insert uri for new book into database
-            Uri bookAdded = getContentResolver().insert(BookEntry.CONTENT_URI, values);
+            getContentResolver().insert(BookEntry.CONTENT_URI, values);
         } else {
             //check if any change was recorded
             int updates = getContentResolver().update(mBookUri, values, null, null);
@@ -172,8 +214,8 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the update was successful
-                Toast.makeText(this, "Details updated successfully",
-                        Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(this, "Details updated successfully", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -281,7 +323,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             //int discount = cursor.getInt(discountColumn); --add in feature later
             String supplier = cursor.getString(supplierColumn);
             String supplierPhone = cursor.getString(supplierPhoneColumn);
-            int stock = cursor.getInt(stockColumn);
+            stock = cursor.getInt(stockColumn);
             //int minStock = cursor.getInt(minStockColumn); --add in feature later
 
 
@@ -293,6 +335,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             mSupplierPhoneEditText.setText(supplierPhone);
             mStockEditText.setText(Integer.toString(stock));
             //mMinStockEditText.setText(minStock); --add in feature later
+
         }
 
     }

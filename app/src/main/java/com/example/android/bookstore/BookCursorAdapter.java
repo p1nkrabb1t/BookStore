@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.bookstore.data.BookContract;
+import com.example.android.bookstore.data.BookContract.BookEntry;
 
 public class BookCursorAdapter extends CursorAdapter {
 
@@ -65,6 +66,7 @@ public class BookCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "test", Toast.LENGTH_SHORT).show();
+
             }
         };
         saleButton.setOnClickListener(sale);

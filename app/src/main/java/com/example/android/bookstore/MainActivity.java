@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             case R.id.delete_all:
                 //before running delete process, first check if there are any entries to delete
-                int count = getContentResolver().query(BookEntry.CONTENT_URI, null, null, null, null).getCount();
+                int count = getContentResolver().query(BookEntry.CONTENT_URI, null,
+                        null, null, null).getCount();
                 //advise user there is nothing to delete and then discontinue with delete
                 if (count == 0) {
                     Toast.makeText(this, "THERE ARE NO BOOKS TO DELETE", Toast.LENGTH_SHORT).show();
