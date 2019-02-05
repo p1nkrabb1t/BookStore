@@ -88,38 +88,38 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
         Button deleteButton = (Button) findViewById(R.id.btn_delete);
 
-        //set click listener to increase stock button
-        View.OnClickListener stockUp = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (stock < 999) {
-                    stock = stock + 1;
-                    mStockEditText.setText(Integer.toString(stock));
-                    mEdited = true;
-                }
-                //stop the user entering more than 3 digits
-                if (stock == 999) {
-                    Toast.makeText(InputActivity.this, "999 is the maximum quantity allowed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
-
-
-        //set click listener to decrease stock button
-        View.OnClickListener stockDown = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (stock > 0) {
-                    stock = stock - 1;
-                    mStockEditText.setText(Integer.toString(stock));
-                    mEdited = true;
-                }
-                //stop the user going below 0
-                if (stock == 0) {
-                    Toast.makeText(InputActivity.this, "Stock cannot be less than 0", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
+//        //set click listener to increase stock button
+//        View.OnClickListener stockUp = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (stock < 999) {
+//                    stock = stock + 1;
+//                    mStockEditText.setText(Integer.toString(stock));
+//                    mEdited = true;
+//                }
+//                //stop the user entering more than 3 digits
+//                if (stock == 999) {
+//                    Toast.makeText(InputActivity.this, "999 is the maximum quantity allowed", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        };
+//
+//
+//        //set click listener to decrease stock button
+//        View.OnClickListener stockDown = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (stock > 0) {
+//                    stock = stock - 1;
+//                    mStockEditText.setText(Integer.toString(stock));
+//                    mEdited = true;
+//                }
+//                //stop the user going below 0
+//                if (stock == 0) {
+//                    Toast.makeText(InputActivity.this, "Stock cannot be less than 0", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        };
 
         //set click listener to save button
         View.OnClickListener save = new View.OnClickListener() {
@@ -164,8 +164,8 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mMinStockEditText.setOnTouchListener(mTouchListener);
 
         // apply listeners to buttons
-        stockIncrease.setOnClickListener(stockUp);
-        stockDecrease.setOnClickListener(stockDown);
+//        stockIncrease.setOnClickListener(stockUp);
+//        stockDecrease.setOnClickListener(stockDown);
         saveButton.setOnClickListener(save);
         cancelButton.setOnClickListener(cancel);
         deleteButton.setOnClickListener(delete);
@@ -312,8 +312,9 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             int authorColumn = cursor.getColumnIndex(BookEntry.COLUMN_AUTHOR);
             int priceColumn = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
             // int discountColumn = cursor.getColumnIndex(BookEntry.COLUMN_DISCOUNT); --add in feature later
-            int supplierColumn = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME);
-            int supplierPhoneColumn = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE);
+            //use substring method to drop the square bracket[] to enable the data be retrieved
+            int supplierColumn = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME.substring(1, 14));
+            int supplierPhoneColumn = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE.substring(1, 22));
             int stockColumn = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
             // int minStockColumn = cursor.getColumnIndex(BookEntry.COLUMN_MIN_STOCK); --add in feature later
 

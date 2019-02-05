@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -94,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         emptyView.setOnClickListener(add);
 
 
+
+
         //set the Cursor Adapter to display the list of 'books', each one being a Cursor of data
         mAdapter = new BookCursorAdapter(this, null, 0);
         listView.setAdapter(mAdapter);
@@ -113,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //start the loader
         getLoaderManager().initLoader(mBookLoader, null, this);
+
+
 
     }
 
