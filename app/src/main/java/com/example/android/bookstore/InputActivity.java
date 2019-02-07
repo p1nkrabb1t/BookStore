@@ -60,15 +60,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         Intent i = getIntent();
         mBookUri = i.getData();
 
-        //set the title based on whether adding or updating, depending on the method used to get to input screen
-        if (mBookUri == null) {
-            setTitle(R.string.title_add_book);
 
-        } else {
-            //use the loader to populate the text fields
-            setTitle(R.string.title_edit_book);
-            getLoaderManager().initLoader(mBookLoader, null, this);
-        }
 
         //assign the data variables to the text input fields
         mNameEditText = (EditText) findViewById(R.id.ET_title);
@@ -79,7 +71,6 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mSupplierPhoneEditText = (EditText) findViewById(R.id.ET_Supplier_phone);
         mStockEditText = (EditText) findViewById(R.id.ET_stock_qty);
         //quantityField = Integer.parseInt(mStockEditText.getText().toString().trim());
-
         mMinStockEditText = (EditText) findViewById(R.id.ET_stock_min);
 
         //find and assign button IDs
@@ -88,6 +79,19 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         Button saveButton = (Button) findViewById(R.id.btn_save);
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
         Button deleteButton = (Button) findViewById(R.id.btn_delete);
+        //deleteButton.setVisibility(View.GONE);
+
+        //set the title based on whether adding or updating, depending on the method used to get to input screen
+        if (mBookUri == null) {
+            setTitle(R.string.title_add_book);
+            deleteButton.setVisibility(View.GONE);
+
+
+        } else {
+            //use the loader to populate the text fields
+            setTitle(R.string.title_edit_book);
+            getLoaderManager().initLoader(mBookLoader, null, this);
+        }
 
         //set click listener to increase stock button
         View.OnClickListener stockUp = new View.OnClickListener() {
