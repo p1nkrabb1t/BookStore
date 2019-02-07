@@ -15,6 +15,8 @@
     <dimen name="limiter_edittext">50dp</dimen>
     <dimen name="limiter_btn">50dp</dimen>
     <dimen name="tv_txt_L">18sp</dimen>
+    <dimen name="txt_med">12sp</dimen>
+    <dimen name="marg_XXL">36dp</dimen>
 
 
 </resources>

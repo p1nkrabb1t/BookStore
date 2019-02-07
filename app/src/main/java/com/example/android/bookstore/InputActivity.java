@@ -212,13 +212,13 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         try {
             stockInput = Integer.parseInt(mStockEditText.getText().toString().trim());
 
-            } catch (NumberFormatException e) {
-                stockInput = 0;
-                Toast.makeText(InputActivity.this, R.string.toast_stock_invalid, Toast.LENGTH_SHORT).show();
+        } catch (NumberFormatException e) {
+            stockInput = 0;
+            Toast.makeText(InputActivity.this, R.string.toast_stock_invalid, Toast.LENGTH_SHORT).show();
         }
 
 
-       if (validEntry) {
+        if (validEntry) {
 
 
             ContentValues values = new ContentValues();
