@@ -75,16 +75,21 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         //find and assign button IDs
         Button stockIncrease = (Button) findViewById(R.id.btn_stock_up);
         Button stockDecrease = (Button) findViewById(R.id.btn_stock_down);
+        Button minStockIncrease = (Button) findViewById(R.id.btn_min_stock_up);
+        Button minStockDecrease = (Button) findViewById(R.id.btn_min_stock_down);
         Button saveButton = (Button) findViewById(R.id.btn_save);
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
         Button deleteButton = (Button) findViewById(R.id.btn_delete);
-        //deleteButton.setVisibility(View.GONE);
+
 
         //set the title based on whether adding or updating, depending on the method used to get to input screen
         if (mBookUri == null) {
             setTitle(R.string.title_add_book);
             deleteButton.setVisibility(View.GONE);
-
+            stockIncrease.setVisibility(View.GONE);
+            stockDecrease.setVisibility(View.GONE);
+            minStockDecrease.setVisibility(View.GONE);
+            minStockIncrease.setVisibility(View.GONE);
 
         } else {
             //use the loader to populate the text fields
@@ -188,45 +193,61 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         Integer stockInput;
 
 
+        boolean validEntry = false;
         int price = 0;
-        if (!TextUtils.isEmpty(priceInput)) {
+
+
+        if (TextUtils.isEmpty(nameInput)) {
+            Toast.makeText(InputActivity.this, "Book name is required", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(supplierInput)) {
+            Toast.makeText(InputActivity.this, "Supplier name is required", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(priceInput)) {
+            Toast.makeText(InputActivity.this, "Price is required", Toast.LENGTH_SHORT).show();
+        } else {
             price = Integer.parseInt(priceInput);
+            validEntry = true;
         }
 
+        //handles error and sets stock to minimum 0 if user gives a null input
         try {
             stockInput = Integer.parseInt(mStockEditText.getText().toString().trim());
-        } catch (NumberFormatException e) {
-            stockInput = 0;
-            Toast.makeText(InputActivity.this, R.string.toast_stock_invalid, Toast.LENGTH_SHORT).show();
 
+            } catch (NumberFormatException e) {
+                stockInput = 0;
+                Toast.makeText(InputActivity.this, R.string.toast_stock_invalid, Toast.LENGTH_SHORT).show();
         }
 
-        ContentValues values = new ContentValues();
-        //set the new data
-        values.put(BookEntry.COLUMN_NAME, nameInput);
-        values.put(BookEntry.COLUMN_AUTHOR, authorInput);
-        values.put(BookEntry.COLUMN_SUPPLIER_NAME, supplierInput);
-        values.put(BookEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneInput);
-        values.put(BookEntry.COLUMN_PRICE, price);
-        values.put(BookEntry.COLUMN_QUANTITY, stockInput);
 
-        if (mBookUri == null) {
-            //no uri present so not editing an existing book, insert uri for new book into database
-            getContentResolver().insert(BookEntry.CONTENT_URI, values);
-        } else {
-            //check if any change was recorded
-            int updates = getContentResolver().update(mBookUri, values, null, null);
-            if (updates == 0) {
-                // No rows were updated
-                Toast.makeText(this, R.string.toast_not_updated,
-                        Toast.LENGTH_SHORT).show();
+       if (validEntry) {
+
+
+            ContentValues values = new ContentValues();
+            //set the new data
+            values.put(BookEntry.COLUMN_NAME, nameInput);
+            values.put(BookEntry.COLUMN_AUTHOR, authorInput);
+            values.put(BookEntry.COLUMN_SUPPLIER_NAME, supplierInput);
+            values.put(BookEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneInput);
+            values.put(BookEntry.COLUMN_PRICE, price);
+            values.put(BookEntry.COLUMN_QUANTITY, stockInput);
+
+            if (mBookUri == null) {
+                //no uri present so not editing an existing book, insert uri for new book into database
+                getContentResolver().insert(BookEntry.CONTENT_URI, values);
             } else {
-                // Otherwise, the update was successful
-                Toast.makeText(this, R.string.toast_details_updated, Toast.LENGTH_SHORT).show();
+                //check if any change was recorded
+                int updates = getContentResolver().update(mBookUri, values, null, null);
+                if (updates == 0) {
+                    // No rows were updated
+                    Toast.makeText(this, R.string.toast_not_updated,
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Otherwise, the update was successful
+                    Toast.makeText(this, R.string.toast_details_updated, Toast.LENGTH_SHORT).show();
+                }
+
             }
 
         }
-
     }
 
     private void deleteBook() {
@@ -289,7 +310,6 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         // If no changes are detected, proceed with going back
         if (!mEdited) {
             super.onBackPressed();
-            return;
         } else launchUnsavedWarning();
     }
 

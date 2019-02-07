@@ -1,186 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/marg_lrg"
+    android:layout_weight="2"
+    android:orientation="vertical"
+    android:padding="@dimen/pad_XS"
     tools:context=".InputActivity">
+
+
+    <EditText
+        android:id="@+id/ET_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/limiter_edittext"
+        android:hint="@string/et_hint_book_title"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/ET_author"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/limiter_edittext"
+        android:hint="@string/et_hint_author"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/ET_Supplier"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/limiter_edittext"
+        android:hint="@string/et_hint_supplier"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/ET_Supplier_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/limiter_edittext"
+        android:hint="@string/et_hint_supplier_tel"
+        android:inputType="number" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marg_lrg"
-        android:layout_marginRight="@dimen/marg_lrg"
-        android:layout_weight="2"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="@dimen/pad_XS">
 
-
         <EditText
-            android:id="@+id/ET_title"
+            android:id="@+id/ET_rrp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/limiter_edittext"
-            android:hint="@string/et_hint_book_title"
-            android:inputType="textCapWords" />
-
-        <EditText
-            android:id="@+id/ET_author"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/limiter_edittext"
-            android:hint="@string/et_hint_author"
-            android:inputType="textCapWords" />
-
-        <EditText
-            android:id="@+id/ET_Supplier"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/limiter_edittext"
-            android:hint="@string/et_hint_supplier"
-            android:inputType="textCapWords" />
-
-        <EditText
-            android:id="@+id/ET_Supplier_phone"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/limiter_edittext"
-            android:hint="@string/et_hint_supplier_tel"
+            android:layout_weight="1"
+            android:hint="@string/et_hint_RRP"
             android:inputType="number" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/ET_discount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/pad_XS">
-
-            <EditText
-                android:id="@+id/ET_rrp"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/limiter_edittext"
-                android:layout_weight="1"
-                android:hint="@string/et_hint_RRP"
-                android:inputType="number" />
-
-            <EditText
-                android:id="@+id/ET_discount"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/limiter_edittext"
-                android:layout_weight="1"
-                android:hint="@string/et_hint_discount"
-                android:inputType="number" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/pad_XS">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/tv_stock_qty"
-                android:textSize="@dimen/tv_txt_L" />
-
-            <Button
-                android:id="@+id/btn_stock_down"
-                android:layout_width="@dimen/limiter_btn"
-                android:layout_height="@dimen/limiter_btn"
-                android:contentDescription="@string/txt_access_decrease_stock"
-                android:text="-" />
-
-            <EditText
-                android:id="@+id/ET_stock_qty"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/limiter_edittext"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:inputType="number"
-                android:maxLength="3"
-                android:padding="@dimen/pad_XS"
-                android:text="0" />
-
-            <Button
-                android:id="@+id/btn_stock_up"
-                android:layout_width="@dimen/limiter_btn"
-                android:layout_height="@dimen/limiter_btn"
-                android:contentDescription="@string/txt_access_increase_stock"
-                android:text="+" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/marg_lrg"
-            android:orientation="horizontal"
-            android:padding="@dimen/pad_XS">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/tv_stock_min"
-                android:textSize="@dimen/tv_txt_L" />
-
-            <Button
-                android:id="@+id/btn_min_stock_down"
-                android:layout_width="@dimen/limiter_btn"
-                android:layout_height="@dimen/limiter_btn"
-                android:contentDescription="@string/txt_access_decrease_min_stock"
-                android:text="-" />
-
-            <EditText
-                android:id="@+id/ET_stock_min"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/limiter_edittext"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:inputType="number"
-                android:maxLength="2"
-                android:padding="@dimen/pad_XS"
-                android:text="0" />
-
-            <Button
-                android:id="@+id/btn_min_stock_up"
-                android:layout_width="@dimen/limiter_btn"
-                android:layout_height="@dimen/limiter_btn"
-                android:contentDescription="@string/txt_access_increase_min_stock"
-                android:text="+" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/pad_XS">
-
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/limiter_btn"
-                android:layout_margin="@dimen/marg_med"
-                android:layout_weight="1"
-                android:text="@string/txt_btn_cancel" />
-
-            <Button
-                android:id="@+id/btn_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/limiter_btn"
-                android:layout_margin="@dimen/marg_med"
-                android:layout_weight="1"
-                android:text="@string/txt_btn_delete" />
-
-
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/limiter_btn"
-                android:layout_margin="@dimen/marg_med"
-                android:layout_weight="1"
-                android:text="@string/txt_btn_save" />
-        </LinearLayout>
-
+            android:layout_height="@dimen/limiter_edittext"
+            android:layout_weight="1"
+            android:hint="@string/et_hint_discount"
+            android:inputType="number" />
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/pad_XS">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/tv_stock_qty"
+            android:textSize="@dimen/tv_txt_L" />
+
+        <Button
+            android:id="@+id/btn_stock_down"
+            android:layout_width="@dimen/limiter_btn"
+            android:layout_height="@dimen/limiter_btn"
+            android:contentDescription="@string/txt_access_decrease_stock"
+            android:text="-" />
+
+        <EditText
+            android:id="@+id/ET_stock_qty"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/limiter_edittext"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="3"
+            android:padding="@dimen/pad_XS"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/btn_stock_up"
+            android:layout_width="@dimen/limiter_btn"
+            android:layout_height="@dimen/limiter_btn"
+            android:contentDescription="@string/txt_access_increase_stock"
+            android:text="+" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marg_lrg"
+        android:orientation="horizontal"
+        android:padding="@dimen/pad_XS">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/tv_stock_min"
+            android:textSize="@dimen/tv_txt_L" />
+
+        <Button
+            android:id="@+id/btn_min_stock_down"
+            android:layout_width="@dimen/limiter_btn"
+            android:layout_height="@dimen/limiter_btn"
+            android:contentDescription="@string/txt_access_decrease_min_stock"
+            android:text="-" />
+
+        <EditText
+            android:id="@+id/ET_stock_min"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/limiter_edittext"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="2"
+            android:padding="@dimen/pad_XS"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/btn_min_stock_up"
+            android:layout_width="@dimen/limiter_btn"
+            android:layout_height="@dimen/limiter_btn"
+            android:contentDescription="@string/txt_access_increase_min_stock"
+            android:text="+" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:padding="@dimen/pad_XS">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/limiter_btn"
+            android:layout_margin="@dimen/marg_med"
+            android:layout_weight="1"
+            android:text="@string/txt_btn_cancel" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/limiter_btn"
+            android:layout_margin="@dimen/marg_med"
+            android:layout_weight="1"
+            android:text="@string/txt_btn_delete" />
+
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/limiter_btn"
+            android:layout_margin="@dimen/marg_med"
+            android:layout_weight="1"
+            android:text="@string/txt_btn_save" />
+    </LinearLayout>
+
+
+</LinearLayout>
