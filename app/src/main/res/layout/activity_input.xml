@@ -35,32 +35,18 @@
         android:id="@+id/ET_Supplier_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/limiter_edittext"
+        android:layout_marginBottom="@dimen/marg_lrg"
         android:hint="@string/et_hint_supplier_tel"
         android:inputType="number" />
 
-    <LinearLayout
+
+    <EditText
+        android:id="@+id/ET_price"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/pad_XS">
+        android:layout_height="@dimen/limiter_edittext"
+        android:hint="@string/et_hint_price"
+        android:inputType="number" />
 
-        <EditText
-            android:id="@+id/ET_rrp"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/limiter_edittext"
-            android:layout_weight="1"
-            android:hint="@string/et_hint_RRP"
-            android:inputType="number" />
-
-        <EditText
-            android:id="@+id/ET_discount"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/limiter_edittext"
-            android:layout_weight="1"
-            android:hint="@string/et_hint_discount"
-            android:inputType="number" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -102,53 +88,13 @@
             android:text="+" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/marg_lrg"
-        android:orientation="horizontal"
-        android:padding="@dimen/pad_XS">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="@string/tv_stock_min"
-            android:textSize="@dimen/tv_txt_L" />
-
-        <Button
-            android:id="@+id/btn_min_stock_down"
-            android:layout_width="@dimen/limiter_btn"
-            android:layout_height="@dimen/limiter_btn"
-            android:contentDescription="@string/txt_access_decrease_min_stock"
-            android:text="-" />
-
-        <EditText
-            android:id="@+id/ET_stock_min"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/limiter_edittext"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="2"
-            android:padding="@dimen/pad_XS"
-            android:text="0" />
-
-        <Button
-            android:id="@+id/btn_min_stock_up"
-            android:layout_width="@dimen/limiter_btn"
-            android:layout_height="@dimen/limiter_btn"
-            android:contentDescription="@string/txt_access_increase_min_stock"
-            android:text="+" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:layout_gravity="bottom"
         android:gravity="bottom"
+        android:orientation="horizontal"
         android:padding="@dimen/pad_XS">
 
         <Button

@@ -56,7 +56,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
 
-        //open up the input screen and retrieve relevant info via uri
+        //open the input screen and retrieve relevant info via uri
         Intent i = getIntent();
         mBookUri = i.getData();
 
@@ -64,19 +64,16 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         //assign the data variables to the text input fields
         mNameEditText = (EditText) findViewById(R.id.ET_title);
         mAuthorEditText = (EditText) findViewById(R.id.ET_author);
-        mPriceEditText = (EditText) findViewById(R.id.ET_rrp);
-        mDiscountEditText = (EditText) findViewById(R.id.ET_discount);
         mSupplierEditText = (EditText) findViewById(R.id.ET_Supplier);
         mSupplierPhoneEditText = (EditText) findViewById(R.id.ET_Supplier_phone);
+        mPriceEditText = (EditText) findViewById(R.id.ET_price);
         mStockEditText = (EditText) findViewById(R.id.ET_stock_qty);
         //quantityField = Integer.parseInt(mStockEditText.getText().toString().trim());
-        mMinStockEditText = (EditText) findViewById(R.id.ET_stock_min);
+
 
         //find and assign button IDs
         Button stockIncrease = (Button) findViewById(R.id.btn_stock_up);
         Button stockDecrease = (Button) findViewById(R.id.btn_stock_down);
-        Button minStockIncrease = (Button) findViewById(R.id.btn_min_stock_up);
-        Button minStockDecrease = (Button) findViewById(R.id.btn_min_stock_down);
         Button saveButton = (Button) findViewById(R.id.btn_save);
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
         Button deleteButton = (Button) findViewById(R.id.btn_delete);
@@ -88,8 +85,6 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             deleteButton.setVisibility(View.GONE);
             stockIncrease.setVisibility(View.GONE);
             stockDecrease.setVisibility(View.GONE);
-            minStockDecrease.setVisibility(View.GONE);
-            minStockIncrease.setVisibility(View.GONE);
 
         } else {
             //use the loader to populate the text fields
@@ -167,11 +162,9 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mNameEditText.setOnTouchListener(mTouchListener);
         mAuthorEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
-        mDiscountEditText.setOnTouchListener(mTouchListener);
         mSupplierEditText.setOnTouchListener(mTouchListener);
         mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
         mStockEditText.setOnTouchListener(mTouchListener);
-        mMinStockEditText.setOnTouchListener(mTouchListener);
 
         // apply listeners to buttons
         stockIncrease.setOnClickListener(stockUp);
@@ -343,31 +336,25 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             int nameColumn = cursor.getColumnIndex(BookEntry.COLUMN_NAME);
             int authorColumn = cursor.getColumnIndex(BookEntry.COLUMN_AUTHOR);
             int priceColumn = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
-            // int discountColumn = cursor.getColumnIndex(BookEntry.COLUMN_DISCOUNT); --add in feature later
             //use substring method to drop the square bracket[] to enable the data be retrieved
             int supplierColumn = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_NAME.substring(1, 14));
             int supplierPhoneColumn = cursor.getColumnIndex(BookEntry.COLUMN_SUPPLIER_PHONE.substring(1, 22));
             int stockColumn = cursor.getColumnIndex(BookEntry.COLUMN_QUANTITY);
-            // int minStockColumn = cursor.getColumnIndex(BookEntry.COLUMN_MIN_STOCK); --add in feature later
 
             String name = cursor.getString(nameColumn);
             String author = cursor.getString(authorColumn);
             int price = cursor.getInt(priceColumn);
-            //int discount = cursor.getInt(discountColumn); --add in feature later
             String supplier = cursor.getString(supplierColumn);
             String supplierPhone = cursor.getString(supplierPhoneColumn);
             stock = cursor.getInt(stockColumn);
-            //int minStock = cursor.getInt(minStockColumn); --add in feature later
 
 
             mNameEditText.setText(name);
             mAuthorEditText.setText(author);
             mPriceEditText.setText(Integer.toString(price));
-            //mDiscountEditText.setText(discount); --add in feature later
             mSupplierEditText.setText(supplier);
             mSupplierPhoneEditText.setText(supplierPhone);
             mStockEditText.setText(Integer.toString(stock));
-            //mMinStockEditText.setText(minStock); --add in feature later
 
         }
 
@@ -379,11 +366,9 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mNameEditText.setText("");
         mAuthorEditText.setText("");
         mPriceEditText.setText("");
-        mDiscountEditText.setText("");
         mSupplierEditText.setText("");
         mSupplierPhoneEditText.setText("");
         mStockEditText.setText("");
-        mMinStockEditText.setText("");
 
     }
 }

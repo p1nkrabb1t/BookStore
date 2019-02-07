@@ -25,12 +25,17 @@
 
     <string name="txt_no_books">No Books To Show</string>
     <string name="txt_click_to_add">Click to add book to inventory</string>
+    <string name="txt_book_title">Book Title:</string>
+    <string name="txt_author">Author</string>
+    <string name="txt_supplier_info">Supplier Info:</string>
+    <string name="txt_price">Price:</string>
+    <string name="txt_stock_qty">Quantity In Stock:</string>
 
     <string name="et_hint_book_title">Book Title</string>
     <string name="et_hint_author">Author</string>
     <string name="et_hint_supplier_tel">Supplier Phone Number</string>
     <string name="et_hint_supplier">Supplier Name</string>
-    <string name="et_hint_RRP">RRP £</string>
+    <string name="et_hint_price">Price £</string>
     <string name="et_hint_discount">Discount %</string>
 
     <string name="tv_stock_qty">Stock Quantity</string>
@@ -40,6 +45,9 @@
     <string name="txt_btn_save">save</string>
     <string name="txt_btn_cancel">cancel</string>
     <string name="txt_btn_sale">Sale</string>
+    <string name="txt_btn_edit">Edit</string>
+    <string name="txt_btn_back">back</string>
+    <string name="txt_btn_call">Call</string>
 
     <string name="txt_access_increase_stock">increase stock</string>
     <string name="txt_access_decrease_stock">decrease stock</string>
@@ -47,12 +55,6 @@
     <string name="txt_access_increase_min_stock">increase minimum stock</string>
     <string name="txt_access_sale_button">sale button</string>
     <string name="img_access_empty_inventory">Empty inventory image</string>
-    <string name="txt_book_title">Book Title:</string>
-    <string name="txt_author">Author</string>
-    <string name="txt_supplier_info">Supplier Info:</string>
-    <string name="txt_price">Price:</string>
-    <string name="txt_stock_qty">Quantity In Stock:</string>
-    <string name="txt_btn_edit">Edit</string>
-    <string name="txt_btn_back">back</string>
-    <string name="txt_btn_call">Call</string>
+
+
 </resources>

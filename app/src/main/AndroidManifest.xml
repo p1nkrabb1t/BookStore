@@ -25,7 +25,10 @@
         <activity
             android:name=".InputActivity"
             android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".DetailsActivity"></activity>
+
+        <activity
+            android:name=".DetailsActivity"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

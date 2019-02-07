@@ -102,7 +102,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //create new intent to launch the input activity
-                Intent i = new Intent(MainActivity.this, InputActivity.class);
+                // Intent i = new Intent(MainActivity.this, InputActivity.class);
+                Intent i = new Intent(MainActivity.this, DetailsActivity.class);
 
                 Uri uri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, id);
                 i.setData(uri);
