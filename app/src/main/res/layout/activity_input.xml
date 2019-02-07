@@ -19,28 +19,28 @@
             android:id="@+id/ET_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/limiter_edittext"
-            android:hint="Book Title"
+            android:hint="@string/et_hint_book_title"
             android:inputType="textCapWords" />
 
         <EditText
             android:id="@+id/ET_author"
             android:layout_width="match_parent"
             android:layout_height="@dimen/limiter_edittext"
-            android:hint="Author"
+            android:hint="@string/et_hint_author"
             android:inputType="textCapWords" />
 
         <EditText
             android:id="@+id/ET_Supplier"
             android:layout_width="match_parent"
             android:layout_height="@dimen/limiter_edittext"
-            android:hint="Supplier Name"
+            android:hint="@string/et_hint_supplier"
             android:inputType="textCapWords" />
 
         <EditText
             android:id="@+id/ET_Supplier_phone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/limiter_edittext"
-            android:hint="Supplier Phone Number"
+            android:hint="@string/et_hint_supplier_tel"
             android:inputType="number" />
 
         <LinearLayout
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/limiter_edittext"
                 android:layout_weight="1"
-                android:hint="RRP £"
+                android:hint="@string/et_hint_RRP"
                 android:inputType="number" />
 
             <EditText
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/limiter_edittext"
                 android:layout_weight="1"
-                android:hint="Discount %"
+                android:hint="@string/et_hint_discount"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -78,8 +78,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Stock Quantity"
-                android:textSize="18sp" />
+                android:text="@string/tv_stock_qty"
+                android:textSize="@dimen/tv_txt_L" />
 
             <Button
                 android:id="@+id/btn_stock_down"
@@ -117,8 +117,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Set Stock Minimum"
-                android:textSize="18sp" />
+                android:text="@string/tv_stock_min"
+                android:textSize="@dimen/tv_txt_L" />
 
             <Button
                 android:id="@+id/btn_min_stock_down"
@@ -139,8 +139,8 @@
 
             <Button
                 android:id="@+id/btn_min_stock_up"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/limiter_btn"
+                android:layout_height="@dimen/limiter_btn"
                 android:text="+" />
         </LinearLayout>
 
@@ -153,10 +153,10 @@
             <Button
                 android:id="@+id/btn_cancel"
                 android:layout_width="wrap_content"
-                android:layout_height="dimen/limiter_btn"
+                android:layout_height="@dimen/limiter_btn"
                 android:layout_margin="@dimen/marg_med"
                 android:layout_weight="1"
-                android:text="cancel" />
+                android:text="@string/txt_btn_cancel" />
 
             <Button
                 android:id="@+id/btn_delete"
@@ -164,16 +164,16 @@
                 android:layout_height="@dimen/limiter_btn"
                 android:layout_margin="@dimen/marg_med"
                 android:layout_weight="1"
-                android:text="delete" />
+                android:text="@string/txt_btn_delete" />
 
 
             <Button
                 android:id="@+id/btn_save"
                 android:layout_width="wrap_content"
-                android:layout_height="dimen/limiter_btn"
+                android:layout_height="@dimen/limiter_btn"
                 android:layout_margin="@dimen/marg_med"
                 android:layout_weight="1"
-                android:text="save" />
+                android:text="@string/txt_btn_save" />
         </LinearLayout>
 
 

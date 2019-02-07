@@ -24,4 +24,15 @@
     <string name="dialogue_delete_negative">cancel</string>
     <string name="txt_no_books">No Books To Show</string>
     <string name="txt_click_to_add">Click to add book to inventory</string>
+    <string name="et_hint_book_title">Book Title</string>
+    <string name="et_hint_author">Author</string>
+    <string name="et_hint_supplier_tel">Supplier Phone Number</string>
+    <string name="et_hint_supplier">Supplier Name</string>
+    <string name="et_hint_RRP">RRP £</string>
+    <string name="et_hint_discount">Discount %</string>
+    <string name="tv_stock_qty">Stock Quantity</string>
+    <string name="tv_stock_min">Set Stock Minimum</string>
+    <string name="txt_btn_delete">delete</string>
+    <string name="txt_btn_save">save</string>
+    <string name="txt_btn_cancel">cancel</string>
 </resources>
