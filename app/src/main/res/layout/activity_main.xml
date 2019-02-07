@@ -25,6 +25,7 @@
             android:layout_height="@dimen/img_empty"
             android:layout_above="@+id/tv_no_books"
             android:layout_centerHorizontal="true"
+            android:contentDescription="@string/img_access_empty_inventory"
             android:src="@drawable/img_no_books" />
 
         <TextView

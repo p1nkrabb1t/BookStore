@@ -99,10 +99,6 @@ public class BookCursorAdapter extends CursorAdapter {
                 }
 
 
-
-
-
-
             }
 
         });

@@ -85,6 +85,7 @@
                 android:id="@+id/btn_stock_down"
                 android:layout_width="@dimen/limiter_btn"
                 android:layout_height="@dimen/limiter_btn"
+                android:contentDescription="@string/txt_access_decrease_stock"
                 android:text="-" />
 
             <EditText
@@ -102,14 +103,15 @@
                 android:id="@+id/btn_stock_up"
                 android:layout_width="@dimen/limiter_btn"
                 android:layout_height="@dimen/limiter_btn"
+                android:contentDescription="@string/txt_access_increase_stock"
                 android:text="+" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="@dimen/marg_lrg"
+            android:orientation="horizontal"
             android:padding="@dimen/pad_XS">
 
             <TextView
@@ -124,6 +126,7 @@
                 android:id="@+id/btn_min_stock_down"
                 android:layout_width="@dimen/limiter_btn"
                 android:layout_height="@dimen/limiter_btn"
+                android:contentDescription="@string/txt_access_decrease_min_stock"
                 android:text="-" />
 
             <EditText
@@ -141,6 +144,7 @@
                 android:id="@+id/btn_min_stock_up"
                 android:layout_width="@dimen/limiter_btn"
                 android:layout_height="@dimen/limiter_btn"
+                android:contentDescription="@string/txt_access_increase_min_stock"
                 android:text="+" />
         </LinearLayout>
 

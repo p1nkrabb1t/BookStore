@@ -7,10 +7,8 @@
     android:padding="@dimen/pad_XS">
 
 
-
-
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
@@ -20,7 +18,6 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="Book Title"
             android:textStyle="bold"
             tools:text="Apps For Beginners" />
 
@@ -28,7 +25,6 @@
             android:id="@+id/tv_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="Author"
             tools:text="C. oder" />
 
     </LinearLayout>
@@ -47,7 +43,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="right"
-            android:contentDescription="Price"
             android:textStyle="bold"
             tools:text="£5" />
 
@@ -57,7 +52,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="right"
-            android:contentDescription="Quantity in stock"
             tools:text="2 In Stock" />
     </LinearLayout>
 
@@ -67,13 +61,14 @@
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:gravity="right"
-        android:padding="@dimen/pad_XS"
         android:layout_margin="@dimen/marg_sml"
-        android:text="Sale"
+        android:contentDescription="@string/txt_access_sale_button"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:scaleType="centerCrop" />
+        android:gravity="right"
+        android:padding="@dimen/pad_XS"
+        android:scaleType="centerCrop"
+        android:text="@string/txt_btn_sale" />
 
 
 </LinearLayout>

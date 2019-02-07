@@ -35,4 +35,11 @@
     <string name="txt_btn_delete">delete</string>
     <string name="txt_btn_save">save</string>
     <string name="txt_btn_cancel">cancel</string>
+    <string name="txt_btn_sale">Sale</string>
+    <string name="txt_access_increase_stock">increase stock</string>
+    <string name="txt_access_decrease_stock">decrease stock</string>
+    <string name="txt_access_decrease_min_stock">decrease minimum stock</string>
+    <string name="txt_access_increase_min_stock">increase minimum stock</string>
+    <string name="txt_access_sale_button">sale button</string>
+    <string name="img_access_empty_inventory">Empty inventory image</string>
 </resources>

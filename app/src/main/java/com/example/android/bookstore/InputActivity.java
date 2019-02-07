@@ -61,7 +61,6 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mBookUri = i.getData();
 
 
-
         //assign the data variables to the text input fields
         mNameEditText = (EditText) findViewById(R.id.ET_title);
         mAuthorEditText = (EditText) findViewById(R.id.ET_author);
@@ -194,10 +193,9 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             price = Integer.parseInt(priceInput);
         }
 
-        try{
+        try {
             stockInput = Integer.parseInt(mStockEditText.getText().toString().trim());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             stockInput = 0;
             Toast.makeText(InputActivity.this, R.string.toast_stock_invalid, Toast.LENGTH_SHORT).show();
 
