@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/img_no_books"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/img_empty"
+            android:layout_height="@dimen/img_empty"
             android:layout_above="@+id/tv_no_books"
             android:layout_centerHorizontal="true"
             android:src="@drawable/img_no_books" />
@@ -33,23 +33,23 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:paddingTop="12dp"
-            android:text="No Books To Show"
-            android:textSize="16sp"
+            android:paddingTop="@dimen/pad_med"
+            android:text="@string/txt_no_books"
+            android:textSize="@dimen/txt_lrg"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_add_books"
-            android:layout_width="120sp"
+            android:layout_width="@dimen/limiter_text_no_books"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_no_books"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:maxLines="2"
-            android:paddingTop="8dp"
-            android:text="Click to add book to inventory"
+            android:paddingTop="@dimen/pad_sml"
+            android:text="@string/txt_click_to_add"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="@dimen/txt_lrg"
             android:textStyle="" />
 
 

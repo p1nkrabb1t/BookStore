@@ -69,7 +69,7 @@
         android:layout_gravity="right"
         android:gravity="right"
         android:padding="@dimen/pad_XS"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/marg_sml"
         android:text="Sale"
         android:focusable="false"
         android:focusableInTouchMode="false"

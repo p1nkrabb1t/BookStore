@@ -22,4 +22,6 @@
     <string name="dialogue_delete_warning">Are you sure</string>
     <string name="dialogue_delete_positive">Continue</string>
     <string name="dialogue_delete_negative">cancel</string>
+    <string name="txt_no_books">No Books To Show</string>
+    <string name="txt_click_to_add">Click to add book to inventory</string>
 </resources>

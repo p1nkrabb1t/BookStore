@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_med">10dp</dimen>
+    <dimen name="marg_sml">8dp</dimen>
+    <dimen name="marg_med">12dp</dimen>
+
     <dimen name="pad_XS">4dp</dimen>
-    <dimen name="pad_med">10dp</dimen>
+    <dimen name="pad_sml">8dp</dimen>
+    <dimen name="pad_med">12dp</dimen>
+
+    <dimen name="txt_lrg">16sp</dimen>
+
+    <dimen name="img_empty">100dp</dimen>
+    <dimen name="limiter_text_no_books">120sp</dimen>
+    <dimen name="marg_lrg">16dp</dimen>
+    <dimen name="limiter_edittext">50dp</dimen>
+    <dimen name="limiter_btn">50dp</dimen>
+
+
 </resources>
