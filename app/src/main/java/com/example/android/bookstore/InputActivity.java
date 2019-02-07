@@ -27,8 +27,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final int mBookLoader = 0;
     private Uri mBookUri;
     private boolean mEdited = false;
-    private int stock;
-    private int stockRemove = 0;
+    private Integer stock;
 
 
     //set variables to store the data added/edited via the text fields
@@ -63,11 +62,11 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
 
         //set the title based on whether adding or updating, depending on the method used to get to input screen
         if (mBookUri == null) {
-            setTitle("Add New Book");
+            setTitle(R.string.title_add_book);
 
         } else {
             //use the loader to populate the text fields
-            setTitle("Update Book Details");
+            setTitle(R.string.title_edit_book);
             getLoaderManager().initLoader(mBookLoader, null, this);
         }
 
@@ -79,6 +78,8 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mSupplierEditText = (EditText) findViewById(R.id.ET_Supplier);
         mSupplierPhoneEditText = (EditText) findViewById(R.id.ET_Supplier_phone);
         mStockEditText = (EditText) findViewById(R.id.ET_stock_qty);
+        //quantityField = Integer.parseInt(mStockEditText.getText().toString().trim());
+
         mMinStockEditText = (EditText) findViewById(R.id.ET_stock_min);
 
         //find and assign button IDs
@@ -93,13 +94,14 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             @Override
             public void onClick(View v) {
                 if (stock < 999) {
-                    stock = stock + 1;
+                    stock += 1;
                     mStockEditText.setText(Integer.toString(stock));
                     mEdited = true;
                 }
                 //stop the user entering more than 3 digits
-                if (stock == 999) {
-                    Toast.makeText(InputActivity.this, "999 is the maximum quantity allowed", Toast.LENGTH_SHORT).show();
+                else if (stock == 999) {
+                    Toast.makeText(InputActivity.this, R.string.toast_stock_exceeded, Toast.LENGTH_SHORT).show();
+
                 }
             }
         };
@@ -110,13 +112,13 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             @Override
             public void onClick(View v) {
                 if (stock > 0) {
-                    stock = stock - 1;
+                    stock -= 1;
                     mStockEditText.setText(Integer.toString(stock));
                     mEdited = true;
                 }
                 //stop the user going below 0
-                if (stock == 0) {
-                    Toast.makeText(InputActivity.this, "Stock cannot be less than 0", Toast.LENGTH_SHORT).show();
+                else if (stock == 0) {
+                    Toast.makeText(InputActivity.this, R.string.toast_stock_invalid, Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -138,8 +140,8 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
 
                 if (!mEdited) {
                     NavUtils.navigateUpFromSameTask(InputActivity.this);
-                }
-                finish();
+                    return;
+                } else launchUnsavedWarning();
 
             }
         };
@@ -180,7 +182,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         String supplierInput = mSupplierEditText.getText().toString().trim();
         String supplierPhoneInput = mSupplierPhoneEditText.getText().toString().trim();
         String priceInput = mPriceEditText.getText().toString().trim();
-        Integer stockInput = Integer.parseInt(mStockEditText.getText().toString().trim());
+        Integer stockInput;
 
 
         int price = 0;
@@ -188,9 +190,13 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             price = Integer.parseInt(priceInput);
         }
 
-        int stock = 0;
-        if (stockInput != null && stockInput > 0) {
-            stock = stockInput;
+        try{
+            stockInput = Integer.parseInt(mStockEditText.getText().toString().trim());
+        }
+        catch (NumberFormatException e) {
+            stockInput = 0;
+            Toast.makeText(InputActivity.this, R.string.toast_stock_invalid, Toast.LENGTH_SHORT).show();
+
         }
 
         ContentValues values = new ContentValues();
@@ -200,7 +206,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         values.put(BookEntry.COLUMN_SUPPLIER_NAME, supplierInput);
         values.put(BookEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneInput);
         values.put(BookEntry.COLUMN_PRICE, price);
-        values.put(BookEntry.COLUMN_QUANTITY, stock);
+        values.put(BookEntry.COLUMN_QUANTITY, stockInput);
 
         if (mBookUri == null) {
             //no uri present so not editing an existing book, insert uri for new book into database
@@ -210,12 +216,11 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             int updates = getContentResolver().update(mBookUri, values, null, null);
             if (updates == 0) {
                 // No rows were updated
-                Toast.makeText(this, "No Updates to Show",
+                Toast.makeText(this, R.string.toast_not_updated,
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the update was successful
-
-                Toast.makeText(this, "Details updated successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_details_updated, Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -229,11 +234,11 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
 
             if (deleted == 0) {
                 // If no rows were removed, display message to advise user
-                Toast.makeText(this, "Delete Failed",
+                Toast.makeText(this, R.string.toast_delete_fail,
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, show delete confirmation message
-                Toast.makeText(this, BookEntry.COLUMN_NAME + " has been deleted",
+                Toast.makeText(this, BookEntry.COLUMN_NAME + getString(R.string.toast_delete_success),
                         Toast.LENGTH_SHORT).show();
             }
             finish();
@@ -244,9 +249,9 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             DialogInterface.OnClickListener discardButtonClickListener) {
         //create alert to warn user of unsaved changes and set click listeners on options
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("There are changes which have not been saved, do you wish to proceed?");
-        builder.setPositiveButton("Discard changes", discardButtonClickListener);
-        builder.setNegativeButton("Keep editing", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.dialogue_unsaved_warning);
+        builder.setPositiveButton(R.string.dialogue_unsaved_positive, discardButtonClickListener);
+        builder.setNegativeButton(R.string.dialogue_unsaved_negative, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //user selected to continue editing
                 if (dialog != null) {
@@ -260,15 +265,9 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         alertDialog.show();
     }
 
-    @Override
-    public void onBackPressed() {
-        // If no changes are detected, proceed with going back
-        if (!mEdited) {
-            super.onBackPressed();
-            return;
-        }
+    public void launchUnsavedWarning() {
 
-        // start dialogue warning the user there are unsaved changes and ask if to proceed
+        // warn the user there are unsaved changes and ask if to proceed
         DialogInterface.OnClickListener discardButtonClickListener =
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -278,9 +277,20 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
                     }
                 };
 
-        // Show dialog to user
+        // start the warning dialogue
         warnUnsavedChanges(discardButtonClickListener);
+
     }
+
+    @Override
+    public void onBackPressed() {
+        // If no changes are detected, proceed with going back
+        if (!mEdited) {
+            super.onBackPressed();
+            return;
+        } else launchUnsavedWarning();
+    }
+
 
     @Override
     //use loader to load data on a background thread

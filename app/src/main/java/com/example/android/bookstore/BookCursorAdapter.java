@@ -59,31 +59,49 @@ public class BookCursorAdapter extends CursorAdapter {
             quantityTextView.setText("OUT OF STOCK");
         } else {
             quantityTextView.setText("In Stock: " + quantityData);
-
         }
 
+        //Find sale button and set click listener
         Button saleButton = (Button) view.findViewById(R.id.btn_sale);
 
         final int position = cursor.getPosition();
         saleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //get the quantity data at the relevant position in the adapter
                 cursor.moveToPosition(position);
                 Integer quantityData = cursor.getInt(quantityColumnIndex);
-                quantityData = quantityData - 1;
 
-                int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
-                String[] id = {String.valueOf(cursor.getInt(idColumnIndex))};
+                //check first there is a positive number of books
+                if (quantityData == null || quantityData == 0) {
+                    Toast.makeText(view.getContext(), view.getContext()
+                            .getString(R.string.toast_book_sold_out), Toast.LENGTH_SHORT).show();
+                    return;
 
-                ContentValues values = new ContentValues();
+                } else {
+                    //reduce quantity by 1 for each time the sale button is pressed
+                    quantityData = quantityData - 1;
 
-                String selection = BookEntry._ID + "=?";
+                    int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
+                    String[] id = {String.valueOf(cursor.getInt(idColumnIndex))};
+                    String selection = BookEntry._ID + "=?";
+                    ContentValues values = new ContentValues();
 
-                values.put(BookEntry.COLUMN_QUANTITY, quantityData);
-                context.getContentResolver().update(BookEntry.CONTENT_URI, values, selection, id);
-                cursor.close();
 
-                Toast.makeText(view.getContext(), "Book Sold, stock updated at " + ", new qty= " + quantityData, Toast.LENGTH_SHORT).show();
+                    //set the new quantity back into the database
+                    values.put(BookEntry.COLUMN_QUANTITY, quantityData);
+                    context.getContentResolver().update(BookEntry.CONTENT_URI, values, selection, id);
+                    cursor.close();
+
+                    //display message to advise user that request was successful
+                    Toast.makeText(view.getContext(), view.getContext()
+                            .getString(R.string.toast_book_sold), Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+
 
             }
 

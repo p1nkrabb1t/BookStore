@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         null, null, null).getCount();
                 //advise user there is nothing to delete and then discontinue with delete
                 if (count == 0) {
-                    Toast.makeText(this, "THERE ARE NO BOOKS TO DELETE", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_no_books_to_delete, Toast.LENGTH_SHORT).show();
                 }
                 // entries are present, proceed with launching delete confirmation dialogue
                 else {
@@ -148,15 +148,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     //add a confirm deletion check message with options to continue or cancel
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure");
+        builder.setMessage(R.string.dialogue_delete_warning);
         //option to continue with delete
-        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.dialogue_delete_positive, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 deleteAllBooks();
             }
         });
         //option to cancel the request
-        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.dialogue_delete_negative, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 if (dialog != null) {
                     dialog.dismiss();
