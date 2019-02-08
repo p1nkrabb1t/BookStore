@@ -68,7 +68,6 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         mSupplierPhoneEditText = (EditText) findViewById(R.id.ET_Supplier_phone);
         mPriceEditText = (EditText) findViewById(R.id.ET_price);
         mStockEditText = (EditText) findViewById(R.id.ET_stock_qty);
-        //quantityField = Integer.parseInt(mStockEditText.getText().toString().trim());
 
 
         //find and assign button IDs
@@ -76,13 +75,12 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         Button stockDecrease = (Button) findViewById(R.id.btn_stock_down);
         Button saveButton = (Button) findViewById(R.id.btn_save);
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
-       // Button deleteButton = (Button) findViewById(R.id.btn_delete);
 
 
         //set the title based on whether adding or updating, depending on the method used to get to input screen
         if (mBookUri == null) {
             setTitle(R.string.title_add_book);
-           // deleteButton.setVisibility(View.GONE);
+            // deleteButton.setVisibility(View.GONE);
             stockIncrease.setVisibility(View.GONE);
             stockDecrease.setVisibility(View.GONE);
 
@@ -150,7 +148,6 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         };
 
 
-
         // apply listeners to input fields
         mNameEditText.setOnTouchListener(mTouchListener);
         mAuthorEditText.setOnTouchListener(mTouchListener);
@@ -164,8 +161,6 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         stockDecrease.setOnClickListener(stockDown);
         saveButton.setOnClickListener(save);
         cancelButton.setOnClickListener(cancel);
-        //deleteButton.setOnClickListener(delete);
-
 
     }
 
@@ -258,7 +253,6 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     public void launchUnsavedWarning() {
-
         // warn the user there are unsaved changes and ask if to proceed
         DialogInterface.OnClickListener discardButtonClickListener =
                 new DialogInterface.OnClickListener() {
