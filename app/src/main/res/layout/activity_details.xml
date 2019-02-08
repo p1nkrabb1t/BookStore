@@ -127,17 +127,45 @@
         android:text="@string/txt_stock_qty"
         android:textSize="@dimen/txt_med" />
 
-    <TextView
-        android:id="@+id/tv_stock_qty"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/marg_med"
-        android:paddingLeft="@dimen/pad_XS"
-        android:paddingBottom="@dimen/pad_XS"
-        android:textSize="@dimen/tv_txt_L"
-        android:textStyle="bold"
-        tools:text="35" />
+        android:orientation="horizontal"
+        android:padding="@dimen/pad_XS"
+        >
 
+
+
+        <Button
+            android:id="@+id/btn_stock_down"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/limiter_btn"
+            android:layout_marginBottom="@dimen/marg_med"
+            android:layout_weight="1"
+            android:contentDescription="@string/txt_access_decrease_stock"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/tv_stock_qty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="@dimen/tv_txt_L"
+            android:textStyle="bold"
+            tools:text="35" />
+
+        <Button
+            android:id="@+id/btn_stock_up"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/limiter_btn"
+            android:layout_marginBottom="@dimen/marg_med"
+            android:layout_weight="1"
+            android:contentDescription="@string/txt_access_increase_stock"
+            android:text="+" />
+
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -145,28 +173,31 @@
         android:layout_gravity="bottom"
         android:gravity="bottom"
         android:orientation="horizontal"
-        android:padding="@dimen/pad_XS">
+        android:padding="@dimen/pad_XS"
+        >
 
         <Button
             android:id="@+id/btn_back"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/marg_med"
-            android:layout_marginTop="@dimen/marg_med"
-            android:layout_marginRight="@dimen/marg_XXL"
-            android:layout_marginBottom="@dimen/marg_med"
+            android:layout_margin="@dimen/marg_med"
             android:layout_weight="1"
             android:text="@string/txt_btn_back" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/limiter_btn"
+            android:layout_margin="@dimen/marg_med"
+            android:layout_weight="1"
+            android:text="@string/txt_btn_delete" />
 
 
         <Button
             android:id="@+id/btn_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/marg_XXL"
-            android:layout_marginTop="@dimen/marg_med"
-            android:layout_marginRight="@dimen/marg_med"
-            android:layout_marginBottom="@dimen/marg_med"
+            android:layout_margin="@dimen/marg_med"
             android:layout_weight="1"
             android:text="@string/txt_btn_edit" />
     </LinearLayout>

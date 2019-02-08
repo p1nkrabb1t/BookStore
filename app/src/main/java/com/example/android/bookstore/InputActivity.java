@@ -76,13 +76,13 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         Button stockDecrease = (Button) findViewById(R.id.btn_stock_down);
         Button saveButton = (Button) findViewById(R.id.btn_save);
         Button cancelButton = (Button) findViewById(R.id.btn_cancel);
-        Button deleteButton = (Button) findViewById(R.id.btn_delete);
+       // Button deleteButton = (Button) findViewById(R.id.btn_delete);
 
 
         //set the title based on whether adding or updating, depending on the method used to get to input screen
         if (mBookUri == null) {
             setTitle(R.string.title_add_book);
-            deleteButton.setVisibility(View.GONE);
+           // deleteButton.setVisibility(View.GONE);
             stockIncrease.setVisibility(View.GONE);
             stockDecrease.setVisibility(View.GONE);
 
@@ -149,13 +149,6 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         };
 
-        //set click listener to delete button
-        View.OnClickListener delete = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteBook();
-            }
-        };
 
 
         // apply listeners to input fields
@@ -171,7 +164,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         stockDecrease.setOnClickListener(stockDown);
         saveButton.setOnClickListener(save);
         cancelButton.setOnClickListener(cancel);
-        deleteButton.setOnClickListener(delete);
+        //deleteButton.setOnClickListener(delete);
 
 
     }
@@ -191,11 +184,11 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
 
 
         if (TextUtils.isEmpty(nameInput)) {
-            Toast.makeText(InputActivity.this, "Book name is required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(InputActivity.this, R.string.toast_title_required, Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(supplierInput)) {
-            Toast.makeText(InputActivity.this, "Supplier name is required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(InputActivity.this, R.string.toast_supplier_required, Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(priceInput)) {
-            Toast.makeText(InputActivity.this, "Price is required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(InputActivity.this, R.string.toast_price_required, Toast.LENGTH_SHORT).show();
         } else {
             price = Integer.parseInt(priceInput);
             validEntry = true;
@@ -243,23 +236,6 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
         }
     }
 
-    private void deleteBook() {
-
-        if (mBookUri != null) {
-            int deleted = getContentResolver().delete(mBookUri, null, null);
-
-            if (deleted == 0) {
-                // If no rows were removed, display message to advise user
-                Toast.makeText(this, R.string.toast_delete_fail,
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                // Otherwise, show delete confirmation message
-                Toast.makeText(this, BookEntry.COLUMN_NAME + getString(R.string.toast_delete_success),
-                        Toast.LENGTH_SHORT).show();
-            }
-            finish();
-        }
-    }
 
     private void warnUnsavedChanges(
             DialogInterface.OnClickListener discardButtonClickListener) {

@@ -105,13 +105,7 @@
             android:layout_weight="1"
             android:text="@string/txt_btn_cancel" />
 
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/limiter_btn"
-            android:layout_margin="@dimen/marg_med"
-            android:layout_weight="1"
-            android:text="@string/txt_btn_delete" />
+
 
 
         <Button

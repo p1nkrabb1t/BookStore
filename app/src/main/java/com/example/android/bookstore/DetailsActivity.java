@@ -1,7 +1,10 @@
 package com.example.android.bookstore;
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -22,7 +25,8 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
     private static final int mBookLoader = 0;
     private Uri mBookUri;
     private String supplierPhone;
-
+    private int stock;
+    private boolean mStockEdited = false;
 
     //set variable names to text views
     private TextView mName;
@@ -67,7 +71,10 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
 
         //find and assign button IDs
         ImageButton callButton = (ImageButton) findViewById(R.id.btn_call_supplier);
+        Button stockIncrease = (Button) findViewById(R.id.btn_stock_up);
+        Button stockDecrease = (Button) findViewById(R.id.btn_stock_down);
         Button editButton = (Button) findViewById(R.id.btn_edit);
+        Button deleteButton = (Button) findViewById(R.id.btn_delete);
         Button backButton = (Button) findViewById(R.id.btn_back);
 
         //set click listener to open the dialer
@@ -82,11 +89,52 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
         };
         callButton.setOnClickListener(call);
 
+        //set click listener to increase stock button
+        View.OnClickListener stockUp = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (stock < 999) {
+                    stock += 1;
+                    mStock.setText(Integer.toString(stock));
+                    mStockEdited = true;
+                }
+                //stop the user entering more than 3 digits
+                else if (stock == 999) {
+                    Toast.makeText(DetailsActivity.this, R.string.toast_stock_exceeded, Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        };
+        stockIncrease.setOnClickListener(stockUp);
+
+
+        //set click listener to decrease stock button
+        View.OnClickListener stockDown = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (stock > 0) {
+                    stock -= 1;
+                    mStock.setText(Integer.toString(stock));
+                    mStockEdited = true;
+                }
+                //stop the user going below 0
+                else if (stock == 0) {
+                    Toast.makeText(DetailsActivity.this, R.string.toast_stock_invalid, Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        stockDecrease.setOnClickListener(stockDown);
+
 
         //set click listener to know when user wants to edit details
         View.OnClickListener edit = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //check for changes to stock before leaving page
+                if (mStockEdited) {
+                    //only run update stock if changes are recorded
+                    updateStock();
+                }
                 Intent i = new Intent(DetailsActivity.this, InputActivity.class);
                 i.setData(mBookUri);
                 startActivity(i);
@@ -94,11 +142,25 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
         };
         editButton.setOnClickListener(edit);
 
+        //set click listener to delete button
+        View.OnClickListener delete = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeleteConfirmationDialog();
+            }
+        };
+        deleteButton.setOnClickListener(delete);
+
 
         //set click listener to allow user to go back
         View.OnClickListener back = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //check for changes to stock before leaving page
+                if (mStockEdited) {
+                    //only run update stock if changes are recorded
+                    updateStock();
+                }
                 NavUtils.navigateUpFromSameTask(DetailsActivity.this);
             }
         };
@@ -109,8 +171,60 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public void onBackPressed() {
+        //check for changes to stock before leaving page
+        if (mStockEdited) {
+            //only run update stock if changes are recorded
+            updateStock();
+        }
         // go back to book list
         super.onBackPressed();
+    }
+
+    private void updateStock() {
+        ContentValues values = new ContentValues();
+        values.put(BookEntry.COLUMN_QUANTITY, stock);
+        getContentResolver().update(mBookUri, values, null, null);
+    }
+
+    //add a confirm deletion check message with options to continue or cancel
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.dialogue_delete_warning);
+        //option to continue with delete
+        builder.setPositiveButton(R.string.dialogue_delete_positive, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                deleteBook();
+            }
+        });
+        //option to cancel the request
+        builder.setNegativeButton(R.string.dialogue_delete_negative, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void deleteBook() {
+
+        if (mBookUri != null) {
+            int deleted = getContentResolver().delete(mBookUri, null, null);
+
+            if (deleted == 0) {
+                // If no rows were removed, display message to advise user
+                Toast.makeText(this, R.string.toast_delete_fail,
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, show delete confirmation message
+                Toast.makeText(this, BookEntry.COLUMN_NAME + getString(R.string.toast_delete_success),
+                        Toast.LENGTH_SHORT).show();
+            }
+            finish();
+        }
     }
 
 
@@ -153,11 +267,11 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
             int price = cursor.getInt(priceColumn);
             String supplier = cursor.getString(supplierColumn);
             supplierPhone = cursor.getString(supplierPhoneColumn);
-            int stock = cursor.getInt(stockColumn);
+            stock = cursor.getInt(stockColumn);
 
             mName.setText(name);
             mAuthor.setText(author);
-            mPrice.setText(Integer.toString(price));
+            mPrice.setText(getString(R.string.GBP) + Integer.toString(price));
             mSupplier.setText(supplier);
             mSupplierPhone.setText(supplierPhone);
             mStock.setText(Integer.toString(stock));
