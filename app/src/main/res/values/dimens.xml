@@ -2,21 +2,24 @@
 <resources>
     <dimen name="marg_sml">8dp</dimen>
     <dimen name="marg_med">12dp</dimen>
+    <dimen name="marg_lrg">16dp</dimen>
+    <dimen name="marg_XXL">36dp</dimen>
 
     <dimen name="pad_XS">4dp</dimen>
     <dimen name="pad_sml">8dp</dimen>
     <dimen name="pad_med">12dp</dimen>
 
+    <dimen name="txt_med">12sp</dimen>
     <dimen name="txt_lrg">16sp</dimen>
+    <dimen name="tv_txt_L">18sp</dimen>
 
     <dimen name="img_empty">100dp</dimen>
     <dimen name="limiter_text_no_books">120sp</dimen>
-    <dimen name="marg_lrg">16dp</dimen>
     <dimen name="limiter_edittext">50dp</dimen>
     <dimen name="limiter_btn">50dp</dimen>
-    <dimen name="tv_txt_L">18sp</dimen>
-    <dimen name="txt_med">12sp</dimen>
-    <dimen name="marg_XXL">36dp</dimen>
+    <dimen name="limiter_btn_lrg">60dp</dimen>
+
+
 
 
 </resources>

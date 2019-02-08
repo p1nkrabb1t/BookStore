@@ -11,6 +11,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,13 +45,13 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
 
         // check uri is valid and if so set the title and load the data
         if (mBookUri != null) {
-            setTitle("Book Details");
+            setTitle(R.string.title_book_details);
             //use the loader to populate the text fields
             getLoaderManager().initLoader(mBookLoader, null, this);
 
 
         } else {
-            Toast.makeText(this, "Book details not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_book_not_found, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -65,7 +66,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
 
 
         //find and assign button IDs
-        Button callButton = (Button) findViewById(R.id.btn_call_supplier);
+        ImageButton callButton = (ImageButton) findViewById(R.id.btn_call_supplier);
         Button editButton = (Button) findViewById(R.id.btn_edit);
         Button backButton = (Button) findViewById(R.id.btn_back);
 

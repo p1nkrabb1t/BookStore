@@ -89,13 +89,13 @@
                 tools:text="00000 000 000" />
         </LinearLayout>
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_call_supplier"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/limiter_btn_lrg"
+            android:layout_height="@dimen/limiter_btn_lrg"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/txt_btn_call" />
+            android:layout_marginRight="@dimen/marg_med"
+            android:src="@drawable/img_call" />
 
 
     </LinearLayout>
