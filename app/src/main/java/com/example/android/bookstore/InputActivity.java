@@ -129,7 +129,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
             @Override
             public void onClick(View v) {
                 saveBook();
-                finish();
+
 
             }
         };
@@ -227,7 +227,7 @@ public class InputActivity extends AppCompatActivity implements LoaderManager.Lo
                 }
 
             }
-
+            finish();
         }
     }
 
